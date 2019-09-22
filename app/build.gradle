@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
 
+<<<<<<< HEAD
+=======
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+>>>>>>> eba30efa3e27768a3e3a6156b21736a5a058f1dc
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -21,9 +28,19 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+<<<<<<< HEAD
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+=======
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+>>>>>>> eba30efa3e27768a3e3a6156b21736a5a058f1dc
 }
