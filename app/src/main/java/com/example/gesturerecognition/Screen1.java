@@ -1,6 +1,7 @@
 package com.example.gesturerecognition;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,13 +12,15 @@ import java.util.Arrays;
 
 public class Screen1 extends Activity implements AdapterView.OnItemSelectedListener {
 
+    static final String ACTION_GESTURE_NAME = "Gesture";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen1);
 
         Spinner gesture_spinner = (Spinner) findViewById(R.id.gesture_spinner);
-        gesture_spinner.setOnItemSelectedListener(this);
+        gesture_spinner.setOnItemSelectedListener(Screen1.this);
 
         ArrayAdapter<CharSequence> gestureDataAdapter = ArrayAdapter.createFromResource(
                 this, R.array.gestures_list, android.R.layout.simple_spinner_item);
@@ -34,7 +37,16 @@ public class Screen1 extends Activity implements AdapterView.OnItemSelectedListe
         String item = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+        if(!item.equals("Select")) {
+            Intent gestureVideoIntent = new Intent(Screen1.this, Screen2.class);
+            gestureVideoIntent.putExtra(this.ACTION_GESTURE_NAME, item);
+            gestureVideoIntent.setType("text/plain");
+            if (gestureVideoIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(gestureVideoIntent);
+            } else {
+                Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override

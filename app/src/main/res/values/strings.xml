@@ -2,27 +2,27 @@
     <string name="app_name">Gesture Recognition</string>
 
     <string-array name="gestures_list">
-
-        <item>gift</item>
-        <item>car</item>
-        <item>pay</item>
-        <item>pet</item>
-        <item>sell</item>
-        <item>explain</item>
-        <item>that</item>
-        <item>book</item>
-        <item>now</item>
-        <item>work</item>
-        <item>total</item>
-        <item>trip</item>
-        <item>future</item>
-        <item>good</item>
-        <item>thank you</item>
-        <item>learn</item>
-        <item>agent</item>
-        <item>should</item>
-        <item>like</item>
-        <item>movie</item>
+        <item>Select</item>
+        <item>Gift</item>
+        <item>Car</item>
+        <item>Pay</item>
+        <item>Pet</item>
+        <item>Sell</item>
+        <item>Explain</item>
+        <item>That</item>
+        <item>Book</item>
+        <item>Now</item>
+        <item>Work</item>
+        <item>Total</item>
+        <item>Trip</item>
+        <item>Future</item>
+        <item>Good</item>
+        <item>Thank you</item>
+        <item>Learn</item>
+        <item>Agent</item>
+        <item>Should</item>
+        <item>Like</item>
+        <item>Movie</item>
 
     </string-array>
 </resources>
