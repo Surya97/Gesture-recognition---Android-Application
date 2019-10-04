@@ -62,7 +62,7 @@ public class Screen2 extends AppCompatActivity {
         Intent gesture_intent = getIntent();
         String gesture_name = gesture_intent.getStringExtra(Screen1.ACTION_GESTURE_NAME);
 
-        Toast.makeText(this, "Selected: " + gesture_name, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Selected: " + gesture_name, Toast.LENGTH_LONG).show();
 
         try {
             handleVideoView(gesture_name);
@@ -91,6 +91,9 @@ public class Screen2 extends AppCompatActivity {
         }
 
         gesture_name_final = gesture_name_final.substring(0, gesture_name_final.length() - 1);
+
+        gesture_name_final = gesture_name_final.substring(0, 1).toUpperCase() +
+                gesture_name_final.substring(1);
 
         final String GESTURE = gesture_name_final;
 
