@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -35,6 +36,8 @@ public class Screen2 extends AppCompatActivity {
     private static VideoView gestureLearnVideo;
     private static MediaController gestureVideoController;
     private static String serverAddress = "http://192.168.0.23:8888/SignSavvyVideos";
+    private static String gestureName;
+    static final String GESTURE_PRACTICE_MESSAGE = "Gesture practice";
     DownloadManager downloadManager;
 
     private long downloadID;
@@ -95,10 +98,8 @@ public class Screen2 extends AppCompatActivity {
         gesture_name_final = gesture_name_final.substring(0, 1).toUpperCase() +
                 gesture_name_final.substring(1);
 
-        final String GESTURE = gesture_name_final;
+        gestureName = gesture_name_final;
 
-//        File gesture_video_file = new File("android.resource://" +
-//        getPackageName() + "/raw/" + gesture_name_final);
         File gesture_video_file = new File(getExternalFilesDir(null),
                 gesture_name_final + ".mp4");
 
@@ -107,14 +108,17 @@ public class Screen2 extends AppCompatActivity {
             beginDownload(gesture_name_final);
         }
         gestureLearnVideo.setVideoURI(Uri.parse(gesture_video_file.toString()));
+
+
         // start a video
         gestureLearnVideo.start();
+
 
         gestureLearnVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 Toast.makeText(getApplicationContext(),
-                        GESTURE, Toast.LENGTH_LONG).show();
+                        gestureName, Toast.LENGTH_LONG).show();
             }
         });
         gestureLearnVideo.setOnErrorListener(new MediaPlayer.OnErrorListener() {
@@ -133,6 +137,14 @@ public class Screen2 extends AppCompatActivity {
 
         DownloadFile downloadFile = new DownloadFile();
         downloadFile.execute(gestureName);
+    }
+
+    public void practice(View screen2View){
+        Intent practiceActivityIntent = new Intent(Screen2.this, Screen3.class);
+        practiceActivityIntent.putExtra(this.GESTURE_PRACTICE_MESSAGE, gestureName);
+        practiceActivityIntent.setType("text/plain");
+
+        startActivity(practiceActivityIntent);
     }
 
     private class DownloadFile extends AsyncTask<String, String, String> {
@@ -164,7 +176,7 @@ public class Screen2 extends AppCompatActivity {
 
             // Display File path after downloading
             Toast.makeText(getApplicationContext(),
-                    message, Toast.LENGTH_LONG).show();
+                    message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

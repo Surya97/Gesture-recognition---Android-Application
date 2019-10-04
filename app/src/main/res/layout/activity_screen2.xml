@@ -23,6 +23,7 @@
         android:layout_centerHorizontal="true"
         android:text="Practice"
         android:layout_below="@id/gesture_tutorial_video"
+        android:onClick="practice"
         />
 
 </RelativeLayout>
