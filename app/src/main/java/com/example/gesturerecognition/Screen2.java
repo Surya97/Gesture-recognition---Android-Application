@@ -35,7 +35,7 @@ public class Screen2 extends AppCompatActivity {
 
     private static VideoView gestureLearnVideo;
     private static MediaController gestureVideoController;
-    private static String serverAddress = "http://192.168.0.23:8888/";
+    private static String serverAddress = "http://192.168.0.23:8888/SignSavvyVideos/";
     private static String gestureName;
     static final String GESTURE_PRACTICE_MESSAGE = "Gesture practice";
     DownloadManager downloadManager;
@@ -145,6 +145,10 @@ public class Screen2 extends AppCompatActivity {
         practiceActivityIntent.setType("text/plain");
 
         startActivity(practiceActivityIntent);
+    }
+
+    public static String getServerAddress(){
+        return serverAddress;
     }
 
     private class DownloadFile extends AsyncTask<String, String, String> {
