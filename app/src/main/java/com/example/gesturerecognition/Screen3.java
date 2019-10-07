@@ -37,16 +37,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.Buffer;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import retrofit2.Call;
-import retrofit2.Callback;
-
 public class Screen3 extends AppCompatActivity {
 
     static int REQUEST_VIDEO_CAPTURE = 0;
@@ -273,8 +263,8 @@ public class Screen3 extends AppCompatActivity {
                 File videoSource = new File(videoLocationString);
                 Log.d("VideoSource",videoSource.getName());
                 FileInputStream inputStream = new FileInputStream(videoSource);
-                URL serverURL = new URL("http://192.168.0.20/android/upload.php");
-                Log.d("Server Location", "http://192.168.0.20/android/upload.php");
+                URL serverURL = new URL(
+                        "http://192.168.0.23/~suryavamsitenneti/android/upload.php");
                 httpConn = (HttpURLConnection) serverURL.openConnection();
                 httpConn.setUseCaches(false);
                 httpConn.setDoOutput(true); // indicates POST method
