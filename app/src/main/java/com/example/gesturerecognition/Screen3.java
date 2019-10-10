@@ -24,19 +24,25 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.Buffer;
+import java.nio.file.Files;
+
 public class Screen3 extends AppCompatActivity {
 
     static int REQUEST_VIDEO_CAPTURE = 0;
@@ -69,7 +75,17 @@ public class Screen3 extends AppCompatActivity {
         }else{
             GestureVideoUploadTask uploadVideo = new GestureVideoUploadTask();
             String actualPath = getActualPath(Screen3.this, recordedVideoUri);
-            uploadVideo.execute(actualPath);
+            File gestureRecordFile = new File(actualPath);
+            String newFileName = actualPath.substring(0,actualPath.lastIndexOf("/"))+"/"+
+                    gestureName+".mp4";
+            try{
+                FileUtils.copyFile(gestureRecordFile, new File(newFileName));
+            }catch(Exception e){
+                Log.d("File Rename Error", "Couldn't rename file");
+            }
+
+            Log.d("NewFileName",newFileName);
+            uploadVideo.execute(newFileName);
         }
     }
 
@@ -78,6 +94,11 @@ public class Screen3 extends AppCompatActivity {
         if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
         }
+    }
+
+    public void backToMain(View view){
+        Intent learnNewGestureIntent = new Intent(Screen3.this, Screen1.class);
+        startActivity(learnNewGestureIntent);
     }
 
     private String getActualPath(final Context context, final Uri uri){
@@ -265,6 +286,8 @@ public class Screen3 extends AppCompatActivity {
                 FileInputStream inputStream = new FileInputStream(videoSource);
                 URL serverURL = new URL(
                         "http://192.168.0.23/~suryavamsitenneti/android/upload.php");
+//                URL serverURL = new URL(
+//                        "http://192.168.0.20/android/upload.php");
                 httpConn = (HttpURLConnection) serverURL.openConnection();
                 httpConn.setUseCaches(false);
                 httpConn.setDoOutput(true); // indicates POST method

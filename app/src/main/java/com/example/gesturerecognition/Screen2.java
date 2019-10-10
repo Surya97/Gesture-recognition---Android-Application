@@ -35,7 +35,7 @@ public class Screen2 extends AppCompatActivity {
 
     private static VideoView gestureLearnVideo;
     private static MediaController gestureVideoController;
-    private static String serverAddress = "http://192.168.0.23:8888/SignSavvyVideos/";
+    private static String serverAddress = "http://192.168.0.23/~suryavamsitenneti/android/SignSavvyVideos";
     private static String gestureName;
     static final String GESTURE_PRACTICE_MESSAGE = "Gesture practice";
     DownloadManager downloadManager;
@@ -99,15 +99,18 @@ public class Screen2 extends AppCompatActivity {
                 gesture_name_final.substring(1);
 
         gestureName = gesture_name_final;
-
-        File gesture_video_file = new File(getExternalFilesDir(null),
-                gesture_name_final + ".mp4");
-
-        if (!gesture_video_file.exists()) {
-            String downloadString = serverAddress + "/" + gesture_name_final + ".mp4";
-            beginDownload(gesture_name_final);
+        try {
+            File gesture_video_file = new File(getExternalFilesDir(null),
+                    gesture_name_final + ".mp4");
+            Log.d("Gesture File at", gesture_video_file.toString());
+            if (!gesture_video_file.exists()) {
+                String downloadString = serverAddress + "/" + gesture_name_final + ".mp4";
+                beginDownload(gesture_name_final);
+            }
+            gestureLearnVideo.setVideoURI(Uri.parse(gesture_video_file.toString()));
+        }catch(Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        gestureLearnVideo.setVideoURI(Uri.parse(gesture_video_file.toString()));
 
 
         // start a video
@@ -188,6 +191,7 @@ public class Screen2 extends AppCompatActivity {
             int count;
             try{
                 URL gesture_video_url = new URL(serverAddress + "/"+ gestureName[0] + ".mp4");
+                Log.d("Gesture Video Url", gesture_video_url.toString());
                 URLConnection connection = gesture_video_url.openConnection();
                 connection.connect();
 

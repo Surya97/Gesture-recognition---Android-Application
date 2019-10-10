@@ -26,4 +26,14 @@
             android:layout_toRightOf="@+id/capture_video"
             />
 
+    <Button
+        android:id="@+id/return_to_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/capture_video"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="32dp"
+        android:onClick="backToMain"
+        android:text="Learn new gesture" />
+
 </RelativeLayout>
