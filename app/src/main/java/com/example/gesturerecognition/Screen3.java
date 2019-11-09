@@ -1,12 +1,16 @@
 package com.example.gesturerecognition;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -60,6 +64,14 @@ public class Screen3 extends AppCompatActivity {
         Toast.makeText(Screen3.this,
                 "Practice Gesture " + gestureName, Toast.LENGTH_LONG).show();
 
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 200);
+        }
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    200);
+        }
 
     }
 
@@ -89,7 +101,7 @@ public class Screen3 extends AppCompatActivity {
         }
     }
 
-    private void dispatchTakeVideoIntent() {
+    private void dispatchTakeVideoIntent(){
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
@@ -285,7 +297,7 @@ public class Screen3 extends AppCompatActivity {
                 Log.d("VideoSource",videoSource.getName());
                 FileInputStream inputStream = new FileInputStream(videoSource);
                 URL serverURL = new URL(
-                        "http://192.168.0.23/~suryavamsitenneti/android/upload.php");
+                        "http://172.20.10.2/android/upload.php");
 //                URL serverURL = new URL(
 //                        "http://192.168.0.20/android/upload.php");
                 httpConn = (HttpURLConnection) serverURL.openConnection();

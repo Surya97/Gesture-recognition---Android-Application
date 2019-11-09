@@ -1,12 +1,16 @@
 package com.example.gesturerecognition;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -35,7 +39,7 @@ public class Screen2 extends AppCompatActivity {
 
     private static VideoView gestureLearnVideo;
     private static MediaController gestureVideoController;
-    private static String serverAddress = "http://192.168.0.23/~suryavamsitenneti/android/SignSavvyVideos";
+    private static String serverAddress = "http://172.20.10.2/android/SignSavvyVideos";
     private static String gestureName;
     static final String GESTURE_PRACTICE_MESSAGE = "Gesture practice";
     DownloadManager downloadManager;
@@ -64,6 +68,11 @@ public class Screen2 extends AppCompatActivity {
 
         Intent gesture_intent = getIntent();
         String gesture_name = gesture_intent.getStringExtra(Screen1.ACTION_GESTURE_NAME);
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    200);
+        }
 
 //        Toast.makeText(this, "Selected: " + gesture_name, Toast.LENGTH_LONG).show();
 
